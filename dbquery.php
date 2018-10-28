@@ -4,14 +4,31 @@
     <meta charset="utf-8">
     <title>Database Query</title>
     <link rel="stylesheet" href="css/dbquery.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/shareAll.css">
   </head>
   <body>
 
+    <!-- Background Image Used: extracted from https://wallpapercave.com/w/wp2261019 -->
 
     <!-- Before loading the page, check if the form is already submitted before -->
     <?php
+    //Start the session, no need to include initialize here, because it contains another set of database credentials
+    session_start();
+
     //Include functions:
     include 'functions.php';
+
+    //Include header:
+    include 'header.php';
+
+    //Say hi to user    o/ Hi!! Can you hear me?       \o hii!!!YES!!!             \o/ \o/ yay! \o/ \o/
+    echo "<p> User: ";
+    echo $_SESSION['firstName'] ?? '';
+    echo " ";
+    echo $_SESSION['lastName'] ?? '';
+    echo "</p>";
+
 
     // Error array that might get populated if there is error
     $errors = array();
