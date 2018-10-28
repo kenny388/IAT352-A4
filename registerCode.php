@@ -42,12 +42,21 @@ if (is_post_request()) {
     // redirect_to('dbquery.php');
     //if NO Error
     if (count($errors) == 0) {
+      //Check if account already exist:
+      $checkQuery = "SELECT * FROM users WHERE email = '{$email}'";
+      $result = $db->query($checkQuery);
+      //See if there is already account exists with same credentials
+      if ($result->num_rows > 0) {
+        //If YES
+        $errors['acc'] = "You have already registered, please try logging in";
+        } else {
         //Import into Database
         $query = "INSERT INTO users (firstName, lastName, email, password) VALUES ('{$firstName}', '{$lastName}', '{$email}', '{$password}')";
         $db->query($query);
         $db->close();
         header('Location: login.php');
         exit();
+      }
     }
 }
 ?>
@@ -55,20 +64,38 @@ if (is_post_request()) {
 <?php $page_title = 'Register'; ?>
 
 <div id="content">
-
+  <div class="container">
+    <div class="box">
 
   <?php echo display_errors($errors); ?>
 
+  <h3>Register As a User</h3>
+
   <form action="register.php" method="post">
-    First Name:<br />
-    <input type="text" name="firstName" value="<?php echo h($firstName); ?>" /><br />
-    Last Name:<br />
-    <input type="text" name="lastName" value="<?php echo h($lastName); ?>" /><br />
-    Email:<br />
-    <input type="text" name="email" value="<?php echo h($email); ?>" /><br />
-    Password:<br />
-    <input type="password" name="password" value="" /><br />
+
+    <hr>
+    <label>FIRST NAME</label>
+    <br />
+    <input type="text" name="firstName" placeholder="Your First Name" value="<?php echo h($firstName); ?>" />
+    <br />
+    <hr>
+    <label>LAST NAME</label>
+    <br />
+    <input type="text" name="lastName" placeholder="Your Last Name" value="<?php echo h($lastName); ?>" />
+    <br />
+    <hr>
+    <label>EMAIL ADDRESS</label>
+      <br />
+    <input type="text" name="email" placeholder="emailaddress@mail.com" value="<?php echo h($email); ?>" />
+    <br />
+    <hr>
+    <label>PASSWORD</label>
+    <br />
+    <input type="text" placeholder="password" name="password" value="" />
+    <br />
+    <br />
     <input type="submit" name="submit" value="Submit"  />
   </form>
-
+</div>
+</div>
 </div>

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="css/dbquery.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/shareAll.css">
+    <link rel="stylesheet" href="css/register.css">
   </head>
   <body>
 

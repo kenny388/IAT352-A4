@@ -16,6 +16,11 @@ hr {
   padding: 0;
 }
 
+h3 {
+  margin-left: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
 label {
   color: rgba(255, 255, 255, 0.5);
   font-size: 0.8em;
@@ -38,7 +43,7 @@ li {
   width: 40%;
   margin-left: 30%;
   /* background-color: rgba(0, 0, 0, 0.05); */
-  margin-top: 7em;
+  margin-top: 1em;
   border-radius: 1em;
   padding: 5em;
   /* text-align: center; */
