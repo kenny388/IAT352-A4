@@ -9,7 +9,7 @@
   </head>
   <body>
 
-    <!-- Background Image Used: extracted from https://wallpapercave.com/w/wp2261019 -->
+
 
     <!-- Before loading the page, check if the form is already submitted before -->
     <?php

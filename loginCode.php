@@ -69,14 +69,21 @@ if (is_post_request()) {
   <?php echo display_errors($errors); ?>
 
   <form action="login.php" method="post">
-    Email:<br />
-    <input type="text" name="email" value="<?php echo h($email); ?>" /><br />
-    Password:<br />
-    <input type="password" name="password" value="" /><br />
-    <input type="submit" name="submit" value="Submit"  />
+    <hr>
+    <label>EMAIL ADDRESS</label>
+      <br />
+    <input type="text" name="email" placeholder="emailaddress@mail.com" value="<?php echo h($email); ?>" />
+    <br />
+    <hr>
+    <label>PASSWORD</label>
+    <br />
+    <input type="text" placeholder="password" name="password" value="" />
+    <br />
+    <br />
+    <input type="submit" name="submit" value="Login"  />
   </form>
 
-  <a href="register.php">Do not have an account? Register Here</a>
+  <a class="link" href="register.php"><label>Do not have an account? Register Here</label></a>
 
 </div>
 </div>

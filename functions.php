@@ -60,10 +60,10 @@ function display_errors($errors=array()) {
   $output = '';
   if(!empty($errors)) {
     $output .= "<div class=\"errors\">";
-    $output .= "Please fix the following errors:";
+    $output .= "<label>Please fix the following errors:</label>";
     $output .= "<ul>";
     foreach($errors as $error) {
-      $output .= "<li>" . h($error) . "</li>";
+      $output .= "<li><label>" . h($error) . "</label></li>";
     }
     $output .= "</ul>";
     $output .= "</div>";
