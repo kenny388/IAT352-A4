@@ -42,7 +42,7 @@ if (is_post_request()) {
               $_SESSION['firstName'] = $firstName;
               $_SESSION['lastName'] = $lastName;
 
-              header('Location: dbquery.php');
+              header('Location: showmodels.php');
               exit();
             } else {
               $errors['noAcc'] = "The email address or password is incorrect";

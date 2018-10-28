@@ -1,7 +1,7 @@
 <div class="header">
   <div class="nav">
     <ul class="leftNav">
-      <li><a href="#">All Models</a></li>
+      <li><a href="showmodels.php">All Models</a></li>
 
 
       <?php

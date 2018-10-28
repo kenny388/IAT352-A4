@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Database Query</title>
-    <link rel="stylesheet" href="css/dbquery.css">
+    <link rel="stylesheet" href="css/showmodels.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/shareAll.css">
   </head>
@@ -11,7 +11,6 @@
 
 
 
-    <!-- Before loading the page, check if the form is already submitted before -->
     <?php
     //Start the session, no need to include initialize here, because it contains another set of database credentials
     session_start();
@@ -23,10 +22,10 @@
     include 'header.php';
 
     //Say hi to user    o/ Hi!! Can you hear me?       \o hii!!!YES!!!             \o/ \o/ yay! \o/ \o/
-    echo "<p> User: ";
+    echo "<p> Hi ";
     echo $_SESSION['firstName'] ?? '';
-    echo " ";
-    echo $_SESSION['lastName'] ?? '';
+    // echo " ";
+    // echo $_SESSION['lastName'] ?? '';
     echo "</p>";
 
 
