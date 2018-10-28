@@ -1,0 +1,30 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  max-width: 49.5%;
+}
+
+#rightColumn {
+  margin-left: 1%;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+.header td {
+  font-weight: bold;
+}
+
+span {
+  font-size: 0.8em;
+  color: rgba(200, 0, 0, 1);
+}
