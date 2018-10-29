@@ -82,6 +82,7 @@
           <!-- Each of these box if checked before, would remain check after submit -->
           <div class="column" id="rightColumn">
             <h3>Select info to Display</h3>
+            <br>
             <div class="innerRow">
             <div class="innerColumn">
               <input type="checkbox" name="chkProductName" value="chkProductName" <?php if (isset($_POST['chkProductName'])) echo "checked"; ?>>
@@ -137,7 +138,7 @@
         $temp = "SELECT ";
 
         //If the checkboxes are checked, add an extra part behind the query statement
-        if (isset($_POST['chkProductName'])) $temp .= "products.productName, ";
+        $temp .= "products.productName, ";
         if (isset($_POST['chkProductCategory'])) $temp .= "products.productLine, ";
         if (isset($_POST['chkProductScale'])) $temp .= "products.productScale, ";
         if (isset($_POST['chkProductVendor'])) $temp .= "products.productVendor, ";
@@ -169,11 +170,9 @@
 
       <!-- Start of Connecting and executing queries to database -->
       <?php
-      // create new connection
-      $dbhost = "localhost";
-      $dbuser = "root";
-      $dbpass = "";
-      $dbname = "classicmodels";
+      //Get credentials
+      include 'private/db_credentials_products.php';
+
       // Suppress if connection failed
       $connection = @mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
 
@@ -212,6 +211,7 @@
             if (isset($_POST['chkProductVendor'])) echo "<td>Vendor</td>";
             if (isset($_POST['chkProductDescription'])) echo "<td>Model Description</td>";
             if (isset($_POST['chkProductBuyPrice'])) echo "<td>Price</td>";
+            echo "<td>Detail Information</td>";
           echo '</tr>';
 
           //Each Loop of fetching data
@@ -227,6 +227,12 @@
           if (isset($_POST['chkProductVendor'])) echo "<td>".$row["productVendor"]."</td>";
           if (isset($_POST['chkProductDescription'])) echo "<td>".$row["productDescription"]."</td>";
           if (isset($_POST['chkProductBuyPrice'])) echo "<td>".$row["buyPrice"]."</td>";
+          //Give a button for further information
+          echo "<td>";
+          echo '<a class="detailButton" href="modeldetails.php?productName=';
+          echo $row["productName"];
+          echo'"><label>Detail</label></a>';
+          echo "</td>";
           echo "</tr>";
         }
         echo "</table>";

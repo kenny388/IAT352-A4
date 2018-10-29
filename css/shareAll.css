@@ -13,7 +13,6 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* background-color: rgba(165, 225, 225, 1); */
-  /* Background Image Used: extracted from https://www.xmple.com/wallpaper/gradient-linear-grey-blue--c2-2f4f4f-afeeee-a-45-f-14-image/ */
   background-image: url(../img/lightblue3.png);
   background-repeat: no-repeat;
 }
