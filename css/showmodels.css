@@ -1,3 +1,7 @@
+body {
+  color: rgba(255, 255, 255, 1);
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -39,7 +43,7 @@ span {
 }
 
 input[type="submit"] {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.6);
   border: none;
   width: 100%;
   color: rgba(90, 140, 140, 1);
