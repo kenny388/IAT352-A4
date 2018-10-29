@@ -91,37 +91,43 @@
       		die("Database query failed.");
       	} else {
           //Recreate Result header
-          echo '<div class="row">';
+          // echo '<div class="row">';
             // echo "<h2>Result</h2>";
-            echo "<br>";
-          echo "</div>";
-          echo '<table class="table">';
+          //   echo "<br>";
+          // echo "</div>";
+          // echo '<table class="table">';
 
           //Giving the first row as table headers
-          echo '<tr class="header">';
-            echo "<td>Model Name</td>";
-            echo "<td>Category</td>";
-            echo "<td>Scale</td>";
-            echo "<td>Vendor</td>";
-            echo "<td>Model Description</td>";
-            echo "<td>Price</td>";
-          echo '</tr>';
+          // echo '<tr class="header">';
+          //   echo "<td>Model Name</td>";
+          //   echo "<td>Category</td>";
+          //   echo "<td>Scale</td>";
+          //   echo "<td>Vendor</td>";
+          //   echo "<td>Model Description</td>";
+          //   echo "<td>Price</td>";
+          // echo '</tr>';
 
           //Each Loop of fetching data
         while ($row = @mysqli_fetch_assoc($result)) {
 
           //Make a new table row
-          echo "<tr>";
+          // echo "<tr>";
 
           //For each field, if checkBox checked, display the fields
-          echo "<td>".$row["productName"]."</td>";
-          echo "<td>".$row["productLine"]."</td>";
-          echo "<td>".$row["productScale"]."</td>";
-          echo "<td>".$row["productVendor"]."</td>";
-          echo "<td>".$row["productDescription"]."</td>";
-          echo "<td>".$row["buyPrice"]."</td>";
+          // echo "<td>".$row["productName"]."</td>";
+          // echo "<td>".$row["productLine"]."</td>";
+          // echo "<td>".$row["productScale"]."</td>";
+          // echo "<td>".$row["productVendor"]."</td>";
+          // echo "<td>".$row["productDescription"]."</td>";
+          // echo "<td>".$row["buyPrice"]."</td>";
+
+          $category = $row["productLine"];
+          $scale = $row["productScale"];
+          $vendor = $row["productVendor"];
+          $description = $row["productDescription"];
+          $price = $row["buyPrice"];
         }
-        echo "</table>";
+        // echo "</table>";
         }
       }
 
@@ -131,6 +137,53 @@
         mysqli_close($connection);
 
       ?>
+
+
+        <div class="recipe">
+          <div class="title">
+              <h2><?php echo $modelName ?></h2>
+          </div>
+          <hr>
+          <div class="oneRow">
+            <div class="leftBox">
+              <h4>Description :</h4><p><?php echo $description; ?></p>
+            </div>
+            <div class="rightBox">
+              <div class="verticalList">
+                <div class="eachVerticalBox">
+                  <p><strong>Category : </strong><?php echo $category; ?></p>
+                </div>
+                <div class="eachVerticalBox">
+                  <p><strong>Scale : </strong><?php echo $scale; ?></p>
+                </div>
+                <div class="eachVerticalBox">
+                  <p><strong>Vendor : </strong><?php echo $vendor; ?></p>
+                </div>
+                <div class="eachVerticalBox">
+                  <p><strong>Price : </strong><?php echo $price; ?></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <br><br>
+          <!-- Form to submit add to watch list -->
+          <form action="addtowatchlist.php" method="post">
+              <input type="hidden" name="modelName" value="<?php echo $modelName;?>"></input>
+              <input type="submit" name="submitt" value="Add To WatchList">
+          </form>
+          <!-- <div class="fiftyfiftyBox">
+            <div class="innerLeftBox">
+              <label>Ingredients</label>
+                <p>1 pcs egg</p>
+                <p>4 spoon salt</p>
+            </div>
+            <div class="innerRightBox">
+              <label>Preparation</label>
+                <p>Lorem ipsum dolor sit amet, vel id choro expetendis interpretaris. An est iusto adipisci inciderint. Duo facilis epicuri ut, erroribus definiebas disputando an his. Pri discere labores cu, sit insolens oportere ex</p>
+            </div>
+          </div> -->
+        </div>
 
       <!-- Printing all the errors for debugging -->
       <?php
