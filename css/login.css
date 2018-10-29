@@ -7,6 +7,10 @@
   /* Background Image Used: extracted from https://www.xmple.com/wallpaper/gradient-linear-grey-blue--c2-2f4f4f-afeeee-a-45-f-14-image/ */
 }
 
+form {
+  margin-bottom: 0.4em;
+}
+
 hr {
   display: block;
   height: 1px;
@@ -54,6 +58,19 @@ input[type="text"] {
 }
 
 input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+input[type="password"] {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 1em;
+  font-size: 0.9em;
+  width: 100%;
+  color: rgba(255, 255, 255, 1);
+}
+
+input[type="password"]::placeholder {
   color: rgba(255, 255, 255, 0.4);
 }
 

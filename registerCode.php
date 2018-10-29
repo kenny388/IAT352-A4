@@ -91,7 +91,7 @@ if (is_post_request()) {
     <hr>
     <label>PASSWORD</label>
     <br />
-    <input type="text" placeholder="password" name="password" value="" />
+    <input type="password" placeholder="password" name="password" value="" />
     <br />
     <br />
     <input type="submit" name="submit" value="Submit"  />
