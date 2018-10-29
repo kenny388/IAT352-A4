@@ -27,6 +27,12 @@
     // Error array that might get populated if there is error
     $errors = array();
 
+    //array for storing this account's existing watchlist imagecreatefromstring
+    $modelsWatched = array();
+
+    //Extract session email
+    $email = @$_SESSION['email'];
+
 
     //Receives the GET model name
     $receivedName = $_GET['productName'];
@@ -90,49 +96,57 @@
         if (!$result) {
       		die("Database query failed.");
       	} else {
-          //Recreate Result header
-          // echo '<div class="row">';
-            // echo "<h2>Result</h2>";
-          //   echo "<br>";
-          // echo "</div>";
-          // echo '<table class="table">';
-
-          //Giving the first row as table headers
-          // echo '<tr class="header">';
-          //   echo "<td>Model Name</td>";
-          //   echo "<td>Category</td>";
-          //   echo "<td>Scale</td>";
-          //   echo "<td>Vendor</td>";
-          //   echo "<td>Model Description</td>";
-          //   echo "<td>Price</td>";
-          // echo '</tr>';
 
           //Each Loop of fetching data
         while ($row = @mysqli_fetch_assoc($result)) {
-
-          //Make a new table row
-          // echo "<tr>";
-
-          //For each field, if checkBox checked, display the fields
-          // echo "<td>".$row["productName"]."</td>";
-          // echo "<td>".$row["productLine"]."</td>";
-          // echo "<td>".$row["productScale"]."</td>";
-          // echo "<td>".$row["productVendor"]."</td>";
-          // echo "<td>".$row["productDescription"]."</td>";
-          // echo "<td>".$row["buyPrice"]."</td>";
-
+          //Extract the data and assign into variables
+          $id = $row["productCode"];
           $category = $row["productLine"];
           $scale = $row["productScale"];
           $vendor = $row["productVendor"];
           $description = $row["productDescription"];
           $price = $row["buyPrice"];
         }
-        // echo "</table>";
         }
       }
 
         //Free $result from memory at the end
         mysqli_free_result($result);
+
+
+        //OBTAINING the existing list of models in the user's watchlist
+
+        //Starting another query to extract the watchlist imagecreatefromstring
+        $query = "SELECT * ";
+
+        //Continue to add the next parts FROM
+        $query .= "FROM watchlist ";
+
+        //Starting Last Part of the Query - WHERE Clause
+        $query .= "WHERE ";
+
+        //where email = email extracted in session
+        $query .= "email = '{$email}'";
+
+        //Execute the query
+        $result = @mysqli_query($connection, $query);
+
+        //If executing query failed, print and stop the page
+        if (!$result) {
+      		die("Database query failed.");
+      	} else {
+          //Success!
+          //Each Loop of fetching data
+          while ($row = @mysqli_fetch_assoc($result)) {
+            $temp = $row['model_id'];
+            //append them onto an array
+            array_push($modelsWatched, $temp);
+          }
+        }
+
+        //Free $result from memory at the end
+        mysqli_free_result($result);
+
         // Close database connection
         mysqli_close($connection);
 
@@ -167,11 +181,36 @@
           </div>
           <hr>
           <br><br>
-          <!-- Form to submit add to watch list -->
-          <form action="addtowatchlist.php" method="post">
-              <input type="hidden" name="modelName" value="<?php echo $modelName;?>"></input>
-              <input type="submit" name="submitt" value="Add To WatchList">
-          </form>
+          <?php
+          //Form to submit button add to watch list
+          //Only exist if the user is logged in AND
+          if (isset($_SESSION['loggedIn'])) {
+
+            //If the watch list user have does not have the model
+            $haveModel = false;
+            foreach ($modelsWatched as $watched) {
+              if ($id == $watched) {
+                $haveModel = true;
+              } else {
+              }
+            }
+
+              //Already have the model in this page
+              //Provide another button telling the user they already own the model and bring them to their watchlist
+              if ($haveModel) {
+                echo '<form action="watchlist.php" method="post">';
+                    echo '<input type="submit" name="submit" value="This model is in your watch list  Click me to browse">';
+                echo '</form>';
+              } else {
+                //Model does not exist in watchlist
+                //Provide button to add to watchlist
+                echo '<form action="addtowatchlist.php" method="post">';
+                    echo '<input type="hidden" name="modelID" value="' . $id . '"></input>';
+                    echo '<input type="submit" name="submit" value="Add To WatchList">';
+                echo '</form>';
+              }
+        }
+        ?>
           <!-- <div class="fiftyfiftyBox">
             <div class="innerLeftBox">
               <label>Ingredients</label>

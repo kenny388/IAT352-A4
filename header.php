@@ -6,7 +6,7 @@
 
       <?php
       if (isset($_SESSION['loggedIn'])) {
-        echo '<li><a href="#">Watchlist</a></li>';
+        echo '<li><a href="watchlist.php">Watchlist</a></li>';
         echo '<li><a href="logOut.php">Log Out</a></li>';
         //Say hi to user    o/ Hi!! Can you hear me?       \o hii!!!YES!!!             \o/ \o/ yay! \o/ \o/
         echo "<h3 class='hiUser'>Hi {$_SESSION['firstName']}</h3>";
