@@ -32,62 +32,34 @@
     // Error array that might get populated if there is error
     $errors = array();
 
-    $orderNumber = "";
-    $dateFrom = "";
-    $dateTo = "";
+    $modelName = "";
 
     //Check if the form has been submitted before
     if(isset($_POST['submit'])){
 
-      //Check Order Number if exist,
-      if (isset($_POST['orderNumber'])) {
+      //Check Model Name if exist,
+      if (isset($_POST['modelName'])) {
         //Check if empty
-        if (!empty($_POST['orderNumber'])) {
+        if (!empty($_POST['modelName'])) {
           //Assign the trimmed number to orderNumber
-        	$orderNumber = trim($_POST['orderNumber']);
-          //Validate if it is numeric
-        	if (!is_numeric($orderNumber)) {
-        		$errors['orderNumber'] = "Order Number must be numeric value!";
-        	}
-        }
+        	$modelName = trim($_POST['modelName']);
+          $modelNameArray =  explode(" ", $modelName);
+      	}
       }
-
-      //Check if dataFrom Exist
-      if (isset($_POST['dateFrom'])) {
-        //Check if empty
-        if (!empty($_POST['dateFrom'])) {
-        	$dateFrom = trim($_POST['dateFrom']);
-          //Using Date Format Check Function from https://stackoverflow.com/questions/19271381/correctly-determine-if-date-string-is-a-valid-date-in-that-format
-          if (!validateDate($dateFrom, $format = 'Y-m-d')) {
-            $errors['dateFrom'] = "Please use the specified format (YYYY-MM-DD)";
-          }
-        }
-      }
-
-      //Check if dataTo Exist
-      if (isset($_POST['dateTo'])) {
-        //Check if empty
-        if (!empty($_POST['dateTo'])) {
-        	$dateTo = trim($_POST['dateTo']);
-          //Using Date Format Check Function from https://stackoverflow.com/questions/19271381/correctly-determine-if-date-string-is-a-valid-date-in-that-format
-          if (!validateDate($dateTo, $format = 'Y-m-d')) {
-            $errors['dateTo'] = "Please use the specified format (YYYY-MM-DD)";
-          }
-        }
-      }
+    }
 
       //Check if no checkBoxes are checked
-      if (!isset($_POST['chkOrderNumber']) &&
-      !isset($_POST['chkOrderDate']) &&
-      !isset($_POST['chkShippedDate']) &&
+      if (isset($_POST['submit']) &&
       !isset($_POST['chkProductName']) &&
+      !isset($_POST['chkProductCategory']) &&
+      !isset($_POST['chkProductScale']) &&
+      !isset($_POST['chkProductVendor']) &&
       !isset($_POST['chkProductDescription']) &&
-      !isset($_POST['chkQuantityOrdered']) &&
-      !isset($_POST['chkPriceEach'])) {
+      !isset($_POST['chkProductBuyPrice'])) {
         //There is nothing to select :/
         $errors['fields'] = "Please select some fields to display!";
       }
-    }
+
     ?>
 
     <!-- page content -->
@@ -104,70 +76,35 @@
         <div class="row">
           <!-- Left Column -->
           <div class="column">
-            <h3>Select Order Parameters</h3>
-            <label>Order Number:</label>
+            <h3>Search for a model you like</h3>
+            <label>Search for a model you like:</label>
             <!-- If field exist, it would be restored back to the input -->
-            <input name="orderNumber" value="<?php if (isset($_POST['orderNumber'])) echo htmlspecialchars($_POST['orderNumber']); ?>" type="text" size="20" />
-            <label>or</label>
-            <br>
-            <!-- span for error message -->
-            <span id='orderNumber_error' class='error'>
-      								<?php if (isset($errors['orderNumber'])){
-      										echo $errors['orderNumber'];
-      									}
-      								?></span>
-            <?php if (isset($errors['orderNumber'])) echo "<br>"; ?>
-            <br>
-            <label>Order Date (YYYY-MM-DD)</label>
-            <br>
-            <label>from:</label>
-            <!-- If field exist, it would be restored back to the input -->
-            <input name="dateFrom" value="<?php if (isset($_POST['dateFrom'])) echo htmlspecialchars($_POST['dateFrom']); ?>" type="text" size="20" />
-            <label>to:</label>
-            <!-- If field exist, it would be restored back to the input -->
-            <input name="dateTo" value="<?php if (isset($_POST['dateTo'])) echo htmlspecialchars($_POST['dateTo']); ?>" type="text" size="20" />
-            <br>
-            <!-- span for error message -->
-            <span id='date_error' class='error'>
-      								<?php
-                      //If there is error, display it below
-                      if (isset($errors['dateFrom']) && isset($errors['dateTo'])){
-                        //If both fields got wrong, only display one
-                        echo @$errors['dateFrom'];
-                      } else if (isset($errors['dateFrom']) || isset($errors['dateTo'])){
-                          //Suppress the error if the error doesn't exist
-      										echo @$errors['dateFrom'];
-                          echo @$errors['dateTo'];
-    									}
-      								?></span>
-            <?php if (isset($errors['dateFrom']) || isset($errors['dateTo'])) echo "<br>"; ?>
+            <input name="modelName" value="<?php if (isset($_POST['modelName'])) echo htmlspecialchars($_POST['modelName']); ?>" type="text" size="20" />
+
           </div>
 
           <!-- Right Column -->
           <!-- Contains all checkBoxes for displaying fields -->
           <!-- Each of these box if checked before, would remain check after submit -->
           <div class="column" id="rightColumn">
-            <h3>Select Columns to Display</h3>
-            <input type="checkbox" name="chkOrderNumber" value="chkOrderNumber" <?php if (isset($_POST['chkOrderNumber'])) echo "checked"; ?>>
-            <label> Order Number</label>
-            <br>
-            <input type="checkbox" name="chkOrderDate" value="chkOrderDate" <?php if (isset($_POST['chkOrderDate'])) echo "checked"; ?>>
-            <label> Order Date</label>
-            <br>
-            <input type="checkbox" name="chkShippedDate" value="chkShippedDate" <?php if (isset($_POST['chkShippedDate'])) echo "checked"; ?>>
-            <label> Shipped Date</label>
-            <br>
+            <h3>Select info to Display</h3>
             <input type="checkbox" name="chkProductName" value="chkProductName" <?php if (isset($_POST['chkProductName'])) echo "checked"; ?>>
-            <label> Product Name</label>
+            <label> Model Name</label>
+            <br>
+            <input type="checkbox" name="chkProductCategory" value="chkProductCategory" <?php if (isset($_POST['chkProductCategory'])) echo "checked"; ?>>
+            <label> Category</label>
+            <br>
+            <input type="checkbox" name="chkProductScale" value="chkProductScale" <?php if (isset($_POST['chkProductScale'])) echo "checked"; ?>>
+            <label> Model Scale</label>
+            <br>
+            <input type="checkbox" name="chkProductVendor" value="chkProductVendor" <?php if (isset($_POST['chkProductVendor'])) echo "checked"; ?>>
+            <label> Vendor</label>
             <br>
             <input type="checkbox" name="chkProductDescription" value="chkProductDescription" <?php if (isset($_POST['chkProductDescription'])) echo "checked"; ?>>
-            <label> Product Description</label>
+            <label> Model Description</label>
             <br>
-            <input type="checkbox" name="chkQuantityOrdered" value="chkQuantityOrdered" <?php if (isset($_POST['chkQuantityOrdered'])) echo "checked"; ?>>
-            <label> Quantity Ordered</label>
-            <br>
-            <input type="checkbox" name="chkPriceEach" value="chkPriceEach" <?php if (isset($_POST['chkPriceEach'])) echo "checked"; ?>>
-            <label> Price Each</label>
+            <input type="checkbox" name="chkProductBuyPrice" value="chkProductBuyPrice" <?php if (isset($_POST['chkProductBuyPrice'])) echo "checked"; ?>>
+            <label> Price</label>
             <br>
             <!-- span for error message -->
             <span id='chkBox_error' class='error'>
@@ -181,7 +118,7 @@
         </div>
 
         <!-- Submit Button -->
-        <input class="button" type="submit" name="submit" value="Search Orders"/>
+        <input class="button" type="submit" name="submit" value="Refine Search"/>
 
         <!-- End Of Form -->
       </form>
@@ -196,13 +133,12 @@
         $temp = "SELECT ";
 
         //If the checkboxes are checked, add an extra part behind the query statement
-        if (isset($_POST['chkOrderNumber'])) $temp .= "orders.orderNumber, ";
-        if (isset($_POST['chkOrderDate'])) $temp .= "orders.orderDate, ";
-        if (isset($_POST['chkShippedDate'])) $temp .= "orders.shippedDate, ";
         if (isset($_POST['chkProductName'])) $temp .= "products.productName, ";
+        if (isset($_POST['chkProductCategory'])) $temp .= "products.productLine, ";
+        if (isset($_POST['chkProductScale'])) $temp .= "products.productScale, ";
+        if (isset($_POST['chkProductVendor'])) $temp .= "products.productVendor, ";
         if (isset($_POST['chkProductDescription'])) $temp .= "products.productDescription, ";
-        if (isset($_POST['chkQuantityOrdered'])) $temp .= "orderdetails.quantityOrdered, ";
-        if (isset($_POST['chkPriceEach'])) $temp .= "orderdetails.priceEach, ";
+        if (isset($_POST['chkProductBuyPrice'])) $temp .= "products.buyPrice, ";
 
         //Used substr to limit the length of the string, from 0 (start) to -2 (2 digits before the end), therefore the , " at the end is gone
         $query = substr($temp, 0, -2);
@@ -210,59 +146,13 @@
         $query .= " ";
 
         //Continue to add the next parts FROM
-        $query .= "FROM orders ";
-
-        //Only Join orderdetails If related checkBox are checked
-        // if (isset($_POST['chkQuantityOrdered']) || isset($_POST['chkPriceEach'])) {
-
-          //Start First Inner Join with orderdetails table
-          $query .= "INNER JOIN orderdetails ";
-
-          //Start defining the join conditions with ON
-          $query .= "ON orders.orderNumber = orderdetails.orderNumber ";
-
-        // }
-
-        //Only if the products table related fields are selected, then join the products table
-        if (isset($_POST['chkProductName']) || isset($_POST['chkProductDescription'])) {
-
-          //Joining second table
-          $query .= "INNER JOIN products ";
-
-          //Condition for second table
-          $query .= "ON products.productCode = orderdetails.productCode ";
-
-        }
+        $query .= "FROM products ";
 
         //Starting Last Part of the Query - WHERE Clause
         //If either of the data was filled, that specify order number and date, add the WHERE statement
-        if (isset($_POST['orderNumber']) && !empty($_POST['orderNumber']) || isset($_POST['dateFrom']) && !empty($_POST['dateFrom']) || isset($_POST['dateTo']) && !empty($_POST['dateTo'])) {
+        if (isset($_POST['modelName']) && !empty($_POST['modelName'])) {
           $query .= "WHERE ";
-        }
-
-        //If order Number is filled, add this query
-        if (isset($_POST['orderNumber']) && !empty($_POST['orderNumber'])) {
-          $query .= "orders.orderNumber = '{$orderNumber}' ";
-        }
-
-        //If order Date From is filled, add this part
-        if (isset($_POST['dateFrom']) && !empty($_POST['dateFrom'])) {
-          //If orderNumber is filled before this,  need the AND clause
-          if (isset($_POST['orderNumber']) && !empty($_POST['orderNumber'])) {
-            $query .= "AND ";
-          }
-          //Add the order Date >= clause with dateForm value
-          $query .= "orders.orderDate >= '{$dateFrom}' ";
-        }
-
-        //If order Date To is filled, add this part
-        if (isset($_POST['dateTo']) && !empty($_POST['dateTo'])) {
-          //If orderNumber or dateFrom is filled before this,  need the AND clause
-          if (isset($_POST['orderNumber']) && !empty($_POST['orderNumber']) || isset($_POST['dateFrom']) && !empty($_POST['dateFrom'])) {
-            $query .= "AND ";
-          }
-          //Add the order Date <= clause with dateTo value
-          $query .= "orders.orderDate <= '{$dateTo}' ";
+          $query .= "products.productName LIKE '%$modelName%'";
         }
 
         //Finally, echo the query out
@@ -311,17 +201,12 @@
 
           //Giving the first row as table headers
           echo '<tr class="header">';
-          //Tried to use column name as header name, automating the process, failed
-          //Just hard coding the header values in
-            // if (isset($_POST['chkOrderNumber'])) echo "<td>{$row->name}</td>";
-            // if (isset($_POST['chkOrderNumber'])) echo '<td>'.mysql_field_name($result, 0).'</td>';
-            if (isset($_POST['chkOrderNumber'])) echo "<td>orderNumber</td>";
-            if (isset($_POST['chkOrderDate'])) echo "<td>orderDate</td>";
-            if (isset($_POST['chkShippedDate'])) echo "<td>shippedDate</td>";
-            if (isset($_POST['chkProductName'])) echo "<td>productName</td>";
-            if (isset($_POST['chkProductDescription'])) echo "<td>productDescription</td>";
-            if (isset($_POST['chkQuantityOrdered'])) echo "<td>quantityOrdered</td>";
-            if (isset($_POST['chkPriceEach'])) echo "<td>priceEach</td>";
+            if (isset($_POST['chkProductName'])) echo "<td>Model Name</td>";
+            if (isset($_POST['chkProductCategory'])) echo "<td>Category</td>";
+            if (isset($_POST['chkProductScale'])) echo "<td>Scale</td>";
+            if (isset($_POST['chkProductVendor'])) echo "<td>Vendor</td>";
+            if (isset($_POST['chkProductDescription'])) echo "<td>Model Description</td>";
+            if (isset($_POST['chkProductBuyPrice'])) echo "<td>Price</td>";
           echo '</tr>';
 
           //Each Loop of fetching data
@@ -329,14 +214,14 @@
 
           //Make a new table row
           echo "<tr>";
+
           //For each field, if checkBox checked, display the fields
-          if (isset($_POST['chkOrderNumber'])) echo "<td>".$row["orderNumber"]."</td>";
-          if (isset($_POST['chkOrderDate'])) echo "<td>".$row["orderDate"]."</td>";
-          if (isset($_POST['chkShippedDate'])) echo "<td>".$row["shippedDate"]."</td>";
           if (isset($_POST['chkProductName'])) echo "<td>".$row["productName"]."</td>";
+          if (isset($_POST['chkProductCategory'])) echo "<td>".$row["productLine"]."</td>";
+          if (isset($_POST['chkProductScale'])) echo "<td>".$row["productScale"]."</td>";
+          if (isset($_POST['chkProductVendor'])) echo "<td>".$row["productVendor"]."</td>";
           if (isset($_POST['chkProductDescription'])) echo "<td>".$row["productDescription"]."</td>";
-          if (isset($_POST['chkQuantityOrdered'])) echo "<td>".$row["quantityOrdered"]."</td>";
-          if (isset($_POST['chkPriceEach'])) echo "<td>".$row["priceEach"]."</td>";
+          if (isset($_POST['chkProductBuyPrice'])) echo "<td>".$row["buyPrice"]."</td>";
           echo "</tr>";
         }
         echo "</table>";

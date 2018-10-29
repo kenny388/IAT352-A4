@@ -15,7 +15,7 @@ body {
 
 .row {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .column {
@@ -23,7 +23,7 @@ body {
 }
 
 #rightColumn {
-  margin-left: 1%;
+  /* margin-left: 1%; */
 }
 
 table, th, td {

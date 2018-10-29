@@ -18,11 +18,11 @@ hr {
 
 h3 {
   margin-left: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 label {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 0.8em;
   margin-left: 1em;
 }
@@ -36,7 +36,7 @@ a label {
 }
 
 li {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .box {
@@ -59,11 +59,11 @@ input[type="text"] {
 }
 
 input[type="text"]::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.4);
 }
 
 input[type="submit"] {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.6);
   border: none;
   width: 100%;
   color: rgba(119, 168, 168, 1);
