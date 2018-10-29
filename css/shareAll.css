@@ -1,8 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body {
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  margin: 0em;
+}
+
 body {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   /* background-color: rgba(165, 225, 225, 1); */
+  /* Background Image Used: extracted from https://www.xmple.com/wallpaper/gradient-linear-grey-blue--c2-2f4f4f-afeeee-a-45-f-14-image/ */
   background-image: url(../img/lightblue.png);
   background-repeat: no-repeat;
 }
@@ -17,4 +28,27 @@ html {
   -webkit-box-sizing: inherit;
   -moz-box-sizing: inherit;
   box-sizing: inherit;
+}
+
+input[type="text"] {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 1em;
+  font-size: 0.9em;
+  width: 100%;
+  color: rgba(255, 255, 255, 1);
+}
+
+input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+input[type="submit"] {
+  background-color: rgba(255, 255, 255, 0.6);
+  border: none;
+  width: 100%;
+  color: rgba(119, 168, 168, 1);
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 0.2em;
 }

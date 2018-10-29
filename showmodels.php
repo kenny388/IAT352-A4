@@ -3,9 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>Database Query</title>
-    <link rel="stylesheet" href="css/showmodels.css">
-    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/shareAll.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/showmodels.css">
+
+
   </head>
   <body>
 
@@ -20,14 +23,6 @@
 
     //Include header:
     include 'header.php';
-
-    //Say hi to user    o/ Hi!! Can you hear me?       \o hii!!!YES!!!             \o/ \o/ yay! \o/ \o/
-    echo "<p> Hi ";
-    echo $_SESSION['firstName'] ?? '';
-    // echo " ";
-    // echo $_SESSION['lastName'] ?? '';
-    echo "</p>";
-
 
     // Error array that might get populated if there is error
     $errors = array();
@@ -66,7 +61,7 @@
 
     <div class="container">
       <div class="row">
-        <h2>Query</h2>
+        <h2>All Models</h2>
       </div>
 
       <!-- Start Of Form -->
@@ -76,10 +71,9 @@
         <div class="row">
           <!-- Left Column -->
           <div class="column">
-            <h3>Search for a model you like</h3>
-            <label>Search for a model you like:</label>
             <!-- If field exist, it would be restored back to the input -->
-            <input name="modelName" value="<?php if (isset($_POST['modelName'])) echo htmlspecialchars($_POST['modelName']); ?>" type="text" size="20" />
+            <input name="modelName" placeholder="SEARCH FOR A MODEL" value="<?php if (isset($_POST['modelName'])) echo htmlspecialchars($_POST['modelName']); ?>" type="text" size="20"/>
+
 
           </div>
 
@@ -88,24 +82,33 @@
           <!-- Each of these box if checked before, would remain check after submit -->
           <div class="column" id="rightColumn">
             <h3>Select info to Display</h3>
-            <input type="checkbox" name="chkProductName" value="chkProductName" <?php if (isset($_POST['chkProductName'])) echo "checked"; ?>>
-            <label> Model Name</label>
-            <br>
-            <input type="checkbox" name="chkProductCategory" value="chkProductCategory" <?php if (isset($_POST['chkProductCategory'])) echo "checked"; ?>>
-            <label> Category</label>
-            <br>
-            <input type="checkbox" name="chkProductScale" value="chkProductScale" <?php if (isset($_POST['chkProductScale'])) echo "checked"; ?>>
-            <label> Model Scale</label>
-            <br>
-            <input type="checkbox" name="chkProductVendor" value="chkProductVendor" <?php if (isset($_POST['chkProductVendor'])) echo "checked"; ?>>
-            <label> Vendor</label>
-            <br>
-            <input type="checkbox" name="chkProductDescription" value="chkProductDescription" <?php if (isset($_POST['chkProductDescription'])) echo "checked"; ?>>
-            <label> Model Description</label>
-            <br>
-            <input type="checkbox" name="chkProductBuyPrice" value="chkProductBuyPrice" <?php if (isset($_POST['chkProductBuyPrice'])) echo "checked"; ?>>
-            <label> Price</label>
-            <br>
+            <div class="innerRow">
+            <div class="innerColumn">
+              <input type="checkbox" name="chkProductName" value="chkProductName" <?php if (isset($_POST['chkProductName'])) echo "checked"; ?>>
+              <label> Model Name</label>
+              <br>
+              <input type="checkbox" name="chkProductCategory" value="chkProductCategory" <?php if (isset($_POST['chkProductCategory'])) echo "checked"; ?>>
+              <label> Category</label>
+              <br>
+            </div>
+            <div class="innerColumn">
+              <input type="checkbox" name="chkProductScale" value="chkProductScale" <?php if (isset($_POST['chkProductScale'])) echo "checked"; ?>>
+              <label> Model Scale</label>
+              <br>
+              <input type="checkbox" name="chkProductVendor" value="chkProductVendor" <?php if (isset($_POST['chkProductVendor'])) echo "checked"; ?>>
+              <label> Vendor</label>
+              <br>
+            </div>
+            <div class="innerColumn">
+              <input type="checkbox" name="chkProductDescription" value="chkProductDescription" <?php if (isset($_POST['chkProductDescription'])) echo "checked"; ?>>
+              <label> Model Description</label>
+              <br>
+              <input type="checkbox" name="chkProductBuyPrice" value="chkProductBuyPrice" <?php if (isset($_POST['chkProductBuyPrice'])) echo "checked"; ?>>
+              <label> Price</label>
+              <br>
+            </div>
+          </div>
+
             <!-- span for error message -->
             <span id='chkBox_error' class='error'>
       								<?php
@@ -115,6 +118,7 @@
     									}
       								?></span>
           </div>
+          <br>
         </div>
 
         <!-- Submit Button -->
@@ -156,8 +160,8 @@
         }
 
         //Finally, echo the query out
-        echo "<h4>SQL Query</h4>";
-        echo $query;
+        // echo "<h4>SQL Query</h4>";
+        // echo $query;
 
       }
       ?>
@@ -195,7 +199,8 @@
       	} else {
           //Recreate Result header
           echo '<div class="row">';
-            echo "<h2>Result</h2>";
+            // echo "<h2>Result</h2>";
+            echo "<br>";
           echo "</div>";
           echo '<table class="table">';
 

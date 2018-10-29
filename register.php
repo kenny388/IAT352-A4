@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Register</title>
-    <link rel="stylesheet" href="css/showmodels.css">
+    <!-- <link rel="stylesheet" href="css/showmodels.css"> -->
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/shareAll.css">
     <link rel="stylesheet" href="css/register.css">
