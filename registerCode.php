@@ -15,6 +15,7 @@ if (is_post_request()) {
     $lastName = $_POST['lastName'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
+    $hashed_password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     if (!empty($firstName)) {
         $_SESSION['firstName'] = $firstName;
@@ -51,7 +52,7 @@ if (is_post_request()) {
         $errors['acc'] = "You have already registered, please try logging in";
         } else {
         //Import into Database
-        $query = "INSERT INTO users (firstName, lastName, email, password) VALUES ('{$firstName}', '{$lastName}', '{$email}', '{$password}')";
+        $query = "INSERT INTO users (firstName, lastName, email, password) VALUES ('{$firstName}', '{$lastName}', '{$email}', '{$hashed_password}')";
         $db->query($query);
         $db->close();
         header('Location: login.php');

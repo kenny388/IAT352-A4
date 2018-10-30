@@ -19,38 +19,45 @@ if (is_post_request()) {
     }
 
     if (!empty($password)) {
+        //encrypt the password
         $_SESSION['password'] = $password;
     } else {
         $errors['password'] = "Please fill in a password";
     }
 
-    // redirect_to('dbquery.php');
     //if NO Error, check if exist in database
     if (count($errors) == 0) {
         //Check
-        $query = "SELECT count(*), firstName, lastName FROM users WHERE email = '{$email}' AND password = '{$password}'";
+        $query = "SELECT count(*), firstName, lastName, password FROM users WHERE email = '{$email}'";
         $result = $db->query($query);
         //This line could already tell theres one or more result
-        if ($result->num_rows > 0) {
+
           //These lines below are just my attempt to fetch the result of query "count(*)"
           while($row = $result->fetch_assoc()) {
+            //There is result
             if ($row['count(*)'] > 0) {
-              //login successful!
-              $_SESSION['loggedIn'] = 'T';
               $firstName = $row['firstName'];
               $lastName = $row['lastName'];
-              $_SESSION['firstName'] = $firstName;
-              $_SESSION['lastName'] = $lastName;
+              $tempPassword = $row['password'];
 
-              header('Location: showmodels.php');
-              exit();
-            } else {
-              $errors['noAcc'] = "The email address or password is incorrect";
-            }
+              //verify the
+              if (password_verify($password, $tempPassword)) {
+
+                //login successful!
+                $_SESSION['loggedIn'] = 'T';
+                $_SESSION['firstName'] = $firstName;
+                $_SESSION['lastName'] = $lastName;
+
+                //success, redirect to showmodels page
+                header('Location: showmodels.php');
+                exit();
+              } else {
+                $errors['noAcc'] = "The email address or password is incorrect";
+              }
+          } else {
+            //No account exist with that email
+            $errors['noAcc'] = "The email address or password is incorrect";
           }
-        } else {
-          //If there is no result
-          $errors['noAcc'] = "The email address or password is incorrect";
         }
 
 
@@ -82,7 +89,7 @@ if (is_post_request()) {
     <br />
     <input type="submit" name="submit" value="Login"  />
   </form>
-  
+
   <a class="link" href="register.php"><label>Do not have an account? Register Here</label></a>
 
 </div>
