@@ -7,6 +7,7 @@ $firstName = '';
 $lastName = '';
 $email = '';
 $password = '';
+$password_repeat = '';
 
 if (is_post_request()) {
     // Set session value
@@ -15,6 +16,7 @@ if (is_post_request()) {
     $lastName = $_POST['lastName'] ?? '';
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
+    $password_repeat = $_POST['password_repeat'] ?? '';
     $hashed_password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
     if (!empty($firstName)) {
@@ -34,13 +36,20 @@ if (is_post_request()) {
         $errors['email'] = "Please format email with emailaddress@XXX.com";
     }
 
-    if (!empty($password)) {
-        $_SESSION['password'] = $password;
-    } else {
-        $errors['password'] = "Please fill in a password";
+    if (empty($password)){
+        $errors['password'] = "Please fill in both password";
     }
 
-    // redirect_to('dbquery.php');
+    if (empty($password_repeat)){
+        $errors['password'] = "Please fill in both password";
+    }
+
+    if ($password === $password_repeat) {
+    } else {
+      $errors['password_identical'] = "Both password should be identical";
+    }
+
+
     //if NO Error
     if (count($errors) == 0) {
       //Check if account already exist:
@@ -93,6 +102,11 @@ if (is_post_request()) {
     <label>PASSWORD</label>
     <br />
     <input type="password" placeholder="password" name="password" value="" />
+    <br />
+    <hr />
+    <label>REPEAT PASSWORD</label>
+    <br />
+    <input type="password" placeholder="Repeat password" name="password_repeat" value="" />
     <br />
     <br />
     <input type="submit" name="submit" value="Submit"  />
