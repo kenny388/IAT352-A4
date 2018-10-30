@@ -96,6 +96,9 @@
             echo "<td>Detail Information</td>";
           echo '</tr>';
 
+          //Get the number of rows in
+          $num_rows = mysqli_num_rows($result);
+
           //Each Loop of fetching data
         while ($row = @mysqli_fetch_assoc($result)) {
 
@@ -119,8 +122,15 @@
           $vendor = $row["productVendor"];
           $description = $row["productDescription"];
           $price = $row["buyPrice"];
+
         }
         echo "</table>";
+        }
+
+        // If there is no result
+        if ($num_rows <= 0) {
+          echo '<br>';
+          echo '<label>You do not have any model in your watch list yet</label>';
         }
       }
 
