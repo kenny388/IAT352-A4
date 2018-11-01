@@ -52,13 +52,13 @@ if (is_post_request()) {
                 $callback_url = "showmodels.php";
                 if (isset($_SESSION['callback_url'])) {
                   $callback_url = $_SESSION['callback_url'];
-                  //switch back to unsecure http
+                  //switch back to unsecure http and go to the callback url
                   header("Location: http://" . $_SERVER["HTTP_HOST"] . $callback_url);
                   exit();
                 }
 
-                //success, redirect to showmodels page
-                header('Location: showmodels.php');
+                //success, redirect to showmodels page with unsecure http
+                header("Location: http://" . $_SERVER["HTTP_HOST"] . "/kycheung/A4/IAT352-A4/showmodels.php");
                 exit();
               } else {
                 $errors['noAcc'] = "The email address or password is incorrect";
@@ -84,6 +84,7 @@ if (is_post_request()) {
     <div class="box">
   <?php echo display_errors($errors); ?>
 
+  <!-- Submit the form to the same page via https -->
   <form action="<?php echo 'https://' . $_SERVER["HTTP_HOST"] . '/kycheung/A4/IAT352-A4/login.php'; ?>" method="post">
     <hr>
     <label>EMAIL ADDRESS</label>
@@ -99,6 +100,7 @@ if (is_post_request()) {
     <input type="submit" name="submit" value="Login"  />
   </form>
 
+  <!-- Link provided to register page if user does not have an account already, with https on -->
   <a class="link" href="<?php echo 'https://' . $_SERVER["HTTP_HOST"] . '/kycheung/A4/IAT352-A4/register.php'; ?>"><label>Do not have an account? Register Here</label></a>
 
 </div>

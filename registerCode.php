@@ -64,6 +64,7 @@ if (is_post_request()) {
         $query = "INSERT INTO users (firstName, lastName, email, password) VALUES ('{$firstName}', '{$lastName}', '{$email}', '{$hashed_password}')";
         $db->query($query);
         $db->close();
+        //Switch to https
         header("Location: https://" . $_SERVER["HTTP_HOST"] . "/kycheung/A4/IAT352-A4/login.php");
         exit();
       }
@@ -81,6 +82,7 @@ if (is_post_request()) {
 
   <h3>Register As a User</h3>
 
+  <!-- Submit the form back the this page with https -->
   <form action="<?php echo 'https://' . $_SERVER["HTTP_HOST"] . '/kycheung/A4/IAT352-A4/register.php'; ?>" method="post">
 
     <hr>
