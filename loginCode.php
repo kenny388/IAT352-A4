@@ -84,7 +84,7 @@ if (is_post_request()) {
     <div class="box">
   <?php echo display_errors($errors); ?>
 
-  <form action="login.php" method="post">
+  <form action="<?php echo 'https://' . $_SERVER["HTTP_HOST"] . '/kycheung/A4/IAT352-A4/login.php'; ?>" method="post">
     <hr>
     <label>EMAIL ADDRESS</label>
       <br />
@@ -99,7 +99,7 @@ if (is_post_request()) {
     <input type="submit" name="submit" value="Login"  />
   </form>
 
-  <a class="link" href="register.php"><label>Do not have an account? Register Here</label></a>
+  <a class="link" href="<?php echo 'https://' . $_SERVER["HTTP_HOST"] . '/kycheung/A4/IAT352-A4/register.php'; ?>"><label>Do not have an account? Register Here</label></a>
 
 </div>
 </div>
