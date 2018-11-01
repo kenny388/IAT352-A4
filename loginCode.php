@@ -48,6 +48,15 @@ if (is_post_request()) {
                 $_SESSION['firstName'] = $firstName;
                 $_SESSION['lastName'] = $lastName;
 
+                //Need to redirect to callback url if exist
+                $callback_url = "showmodels.php";
+                if (isset($_SESSION['callback_url'])) {
+                  $callback_url = $_SESSION['callback_url'];
+                  //switch back to unsecure http
+                  header("Location: http://" . $_SERVER["HTTP_HOST"] . $callback_url);
+                  exit();
+                }
+
                 //success, redirect to showmodels page
                 header('Location: showmodels.php');
                 exit();

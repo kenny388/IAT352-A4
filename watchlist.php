@@ -36,6 +36,15 @@
     // Error array that might get populated if there is error
     $errors = array();
 
+    //Receive and display session message if there is any
+    if(isset($_SESSION['message']) && $_SESSION['message'] != '') {
+      $msg = $_SESSION['message'];
+      unset($_SESSION['message']);
+      if(isset($msg)) {
+        echo '<div class="message">' . h($msg) . '</div>';
+      }
+    }
+
         //Start the query function
         $query = "SELECT * ";
 

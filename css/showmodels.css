@@ -162,3 +162,12 @@ a:hover {
 .innerRightBox {
   width: 70%;
 }
+
+.message {
+  border-style: solid;
+  border-width: 3px;
+  border-radius: 0.5em;
+  border-color: rgba(255, 255, 255, 0.5);
+  padding: 1em;
+  margin-top: 1em;
+}

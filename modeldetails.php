@@ -106,6 +106,8 @@
           $vendor = $row["productVendor"];
           $description = $row["productDescription"];
           $price = $row["buyPrice"];
+          //Setting the last viewed model Id, for callback purpose
+          $_SESSION["lastViewedModelId"] = $id;
         }
         }
       }
@@ -116,7 +118,7 @@
 
         //OBTAINING the existing list of models in the user's watchlist
 
-        //Starting another query to extract the watchlist imagecreatefromstring
+        //Starting another query to extract the watchlist
         $query = "SELECT * ";
 
         //Continue to add the next parts FROM
@@ -181,9 +183,11 @@
           </div>
           <hr>
           <br><br>
+
           <?php
           //Form to submit button add to watch list
           //Only exist if the user is logged in AND
+          //Also, if logged in, there is no need for callback url to be set
           if (isset($_SESSION['loggedIn'])) {
 
             //If the watch list user have does not have the model
@@ -191,7 +195,6 @@
             foreach ($modelsWatched as $watched) {
               if ($id == $watched) {
                 $haveModel = true;
-              } else {
               }
             }
 
@@ -209,6 +212,12 @@
                     echo '<input type="submit" name="submit" value="Add To WatchList">';
                 echo '</form>';
               }
+        } else {
+          //if not logged in
+          //will still have the button, but lead to login page
+          echo '<form action="callBack_redirect.php" method="post">';
+              echo '<input type="submit" name="submit" value="Add To WatchList">';
+          echo '</form>';
         }
         ?>
           <!-- <div class="fiftyfiftyBox">
