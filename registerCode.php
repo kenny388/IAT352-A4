@@ -36,6 +36,7 @@ if (is_post_request()) {
         $errors['email'] = "Please format email with emailaddress@XXX.com";
     }
 
+    //Check if the two passwords are identical
     if (empty($password)){
         $errors['password'] = "Please fill in both password";
     }

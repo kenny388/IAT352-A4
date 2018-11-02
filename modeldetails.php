@@ -220,17 +220,7 @@
           echo '</form>';
         }
         ?>
-          <!-- <div class="fiftyfiftyBox">
-            <div class="innerLeftBox">
-              <label>Ingredients</label>
-                <p>1 pcs egg</p>
-                <p>4 spoon salt</p>
-            </div>
-            <div class="innerRightBox">
-              <label>Preparation</label>
-                <p>Lorem ipsum dolor sit amet, vel id choro expetendis interpretaris. An est iusto adipisci inciderint. Duo facilis epicuri ut, erroribus definiebas disputando an his. Pri discere labores cu, sit insolens oportere ex</p>
-            </div>
-          </div> -->
+
         </div>
 
       <!-- Printing all the errors for debugging -->

@@ -1,6 +1,4 @@
 <?php
-// require_once('../../private/initialize.php');
-// include 'functions.php';
 
 $errors = [];
 $email = '';
@@ -12,6 +10,7 @@ if (is_post_request()) {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
+    //Receives and check if the forms have been filled valid
     if (!empty($email) && has_string($email, '@')) {
         $_SESSION['email'] = $email;
     } else {
@@ -19,7 +18,6 @@ if (is_post_request()) {
     }
 
     if (!empty($password)) {
-        //encrypt the password
         $_SESSION['password'] = $password;
     } else {
         $errors['password'] = "Please fill in a password";
@@ -40,7 +38,7 @@ if (is_post_request()) {
               $lastName = $row['lastName'];
               $tempPassword = $row['password'];
 
-              //verify the
+              //verify the password with hash encryption
               if (password_verify($password, $tempPassword)) {
 
                 //login successful!
@@ -49,7 +47,7 @@ if (is_post_request()) {
                 $_SESSION['lastName'] = $lastName;
 
                 //Need to redirect to callback url if exist
-                $callback_url = "showmodels.php";
+                $callback_url = "/kycheung/A4/IAT352-A4/showmodels.php";
                 if (isset($_SESSION['callback_url'])) {
                   $callback_url = $_SESSION['callback_url'];
                   //switch back to unsecure http and go to the callback url
@@ -69,7 +67,7 @@ if (is_post_request()) {
           }
         }
 
-
+        //Close the database
         $db->close();
 
     }

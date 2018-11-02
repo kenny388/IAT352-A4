@@ -21,8 +21,7 @@
     //Include header:
     include 'header.php';
 
-
-
+    //Include the actual login Code
     include 'loginCode.php';
 
     ?>

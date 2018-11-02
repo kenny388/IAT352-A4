@@ -1,4 +1,5 @@
 <?php
+//Extracted from Wk7 && Wk8
 
   // is_blank('abcd')
   // * validate data presence
